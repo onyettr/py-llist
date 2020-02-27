@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3.7
 #pylint; ignore invalid-name
 """
    Single Linked List implementation
