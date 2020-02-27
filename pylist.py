@@ -1,9 +1,20 @@
 #!/usr/bin/python3.7
 #pylint; ignore invalid-name
+import logging
+
 """
    Single Linked List implementation
 
 """
+
+logger = logging.getLogger(__name__)
+logging.basicConfig(level=logging.DEBUG)
+#logger.setLevel(logging.DEBUG)
+#ch = logging.StreamHandler()
+#ch.setLevel(logging.ERROR)
+#formatter = logging.Formatter('%(asctime)s - %(name)s - %(message)s')
+#ch.setFormatter(formatter)
+#logger.addHandler(ch)
 
 class Node(object):
     """
@@ -24,27 +35,41 @@ class listSingle(object):
         self.next = None
         self.count = 0
         self.data = nodedata
-        print("list ctor ")
+        self.logger = logging.getLogger('list single')
+        self.logger.info("list ctor ")
         
     def list_add(self, data):
         """
             Add a new element to the list
         """
+        self.logger.info(">> list_add Enter {}".format(data))
+        
         new_node = Node()
         new_node.data = data
         new_node.next = None
-
+        self.logger.debug("  new node {}".format( hex(id(new_node))))
+        
         if self.head is None:
            """
                We are first element 
            """
            self.head = new_node
            self.tail = new_node
-
+           
+           self.logger.debug("  added as first ")
         else:
-            self.next = new_node
+            currenthead = self.head
+            currenthead.next = new_node     # Point at the new node
+            self.next = currenthead         # Move head to new node
             self.tail = self.next
+            self.logger.debug("  added as new Next {}".format(self.next))
+
         self.count = self.count + 1
+
+        self.logger.debug("  Head {}".format(hex(id(self.head))))
+        self.logger.debug("  Tail {}".format(hex(id(self.tail))))
+
+        self.logger.info(">> list_add Exit")
         
     def list_show(self):
         """
@@ -55,6 +80,8 @@ class listSingle(object):
             return
 
         current = self.head
+        print("Head ", current)
+        print("Count ", self.count)
         
         while current is not None:
             print("data ", current.data)
@@ -67,6 +94,15 @@ if __name__ == "__main__":
     try:
         list1.list_show()
     except ValueError as e:
-        print("- ", e)
-        
+        logger.error(e)
+
+    list1.list_add(100)
+    list1.list_add(101)
+    list1.list_add(102)        
+    try:
+        list1.list_show()
+    except ValueError as e:
+#        print("- ", e)
+        logger.error(e)
+    
     
