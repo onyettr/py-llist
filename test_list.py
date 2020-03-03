@@ -41,7 +41,25 @@ class TestSingleList(unittest.TestCase):
             list.list_show()
         except ValueError as e:
             print("- ", e)
-            
+
+    def test_list_search(self):
+        list2 = listSingle(5)
+
+        # test empty list
+        try:
+            list2.list_search(20)
+        except ValueError as e:
+            print("- ", e)
+
+        # fill up the list
+        list2.list_add(20)
+        list2.list_add(21)
+        list2.list_add(2)
+
+        self.assertEqual(list2.list_search(20), 0)
+        self.assertEqual(list2.list_search(21), 1)
+        self.assertEqual(list2.list_search(22), -1)        
+        
 if __name__ == '__main__':
     unittest.main()
         
