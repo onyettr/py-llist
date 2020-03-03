@@ -105,23 +105,37 @@ class listSingle(object):
         """
             Return elemnt at the front of the list
         """
-        if list_empty():
+#        self.logger.info(">> list_get_front ")
+        
+        if self.list_empty():
             raise ValueError("List is empty!")
             return
+
         head = self.head
         value = head.data
 
-        return data
+        return value
         
     def list_get_back(self):
         """
             Return elemnt at the back of the list
         """
+        if self.list_empty():
+            raise ValueError("List is empty!")
+            return
+
+        tail = self.tail
+        value = tail.data
+
+        return value
         
     def list_search(self, value):
         """
             Search list for specific item
         """
+
+        self.logger.info(">> list_search " )
+        
         position = 0
         
         if self.head is None:
@@ -134,7 +148,6 @@ class listSingle(object):
                 return position
             current = current.next
             position = position + 1
-
 
         return -1
 
@@ -204,3 +217,5 @@ if __name__ == "__main__":
     print("add to back")
     list2.list_add_back(2002)
     list2.list_show()
+
+    print("list_get_back = ", list2.list_get_back())    

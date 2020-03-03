@@ -22,6 +22,7 @@ class TestSingleList(unittest.TestCase):
             Test list_show with no elements
         """
         list = listSingle(10)        
+
         try:
             list.list_show()
         except ValueError as e:
@@ -42,6 +43,17 @@ class TestSingleList(unittest.TestCase):
         except ValueError as e:
             print("- ", e)
 
+    def test_add_to_front(self):
+        list2 = listSingle(5)
+
+        list2.list_add('entry 1')
+        list2.list_add('entry 2')        
+        list2.list_add('entry 3')
+
+        list2.list_add_front('entry 0')
+
+        self.assertEqual(list2.list_get_front(), 'entry 0')        
+        
     def test_list_search(self):
         list2 = listSingle(5)
 
