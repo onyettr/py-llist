@@ -26,7 +26,7 @@ class TestSingleList(unittest.TestCase):
         try:
             list.list_show()
         except ValueError as e:
-            print("- ", e)
+            print("excep ", e)
         else:
             self.fail("test_list_show - didnt see exception error")
 
@@ -41,9 +41,12 @@ class TestSingleList(unittest.TestCase):
         try:
             list.list_show()
         except ValueError as e:
-            print("- ", e)
+            print("excep ", e)
 
     def test_add_to_front(self):
+        """
+            Test adding to front of list
+        """
         list2 = listSingle(5)
 
         list2.list_add('entry 1')
@@ -52,7 +55,25 @@ class TestSingleList(unittest.TestCase):
 
         list2.list_add_front('entry 0')
 
+        list2.list_show()
+        
         self.assertEqual(list2.list_get_front(), 'entry 0')        
+
+    def test_add_to_back(self):
+        """
+            Test adding to back of list
+        """
+        list2 = listSingle(5)
+
+        list2.list_add('entry 1')
+        list2.list_add('entry 2')        
+        list2.list_add('entry 3')
+
+        list2.list_add_back('entry 4')
+
+        list2.list_show()
+        
+        self.assertEqual(list2.list_get_back(), 'entry 4')        
         
     def test_list_search(self):
         list2 = listSingle(5)
@@ -61,7 +82,7 @@ class TestSingleList(unittest.TestCase):
         try:
             list2.list_search(20)
         except ValueError as e:
-            print("- ", e)
+            print("excep ", e)
 
         # fill up the list
         list2.list_add(20)

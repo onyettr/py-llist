@@ -6,9 +6,8 @@ import logging
    Single Linked List implementation
 
 """
-
 logger = logging.getLogger(__name__)
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=100)
 
 class Node(object):
     """
@@ -18,7 +17,6 @@ class Node(object):
         self.next = None
         self.data = nodedata
 
-    
 class listSingle(object):
     """
         simple class type for a single linked list
@@ -40,7 +38,22 @@ class listSingle(object):
             return True
 
         return False
-        
+
+    def list_length(self):
+        """
+            Return number of elements in the list
+        """
+
+        list_length = 0
+        p_head = self.head
+        self.logger.debug("  list_length {}".format( hex(id(p_head))))
+
+        while p_head is not None:
+            list_length = list_length + 1
+            p_head = p_head.next
+
+        return list_length
+
     def list_add_front(self, data):
         """
             Add a new element to the front of the list
@@ -50,7 +63,7 @@ class listSingle(object):
         new_node.next = self.head       # Move the Head to this new element, making it first
         self.head = new_node            
 
-        self.count = self.count + 1        
+        self.count = self.count + 1
 
     def list_add_back(self, data):
         """ 
@@ -58,35 +71,35 @@ class listSingle(object):
         """
         new_node = Node()               # create a new list element
         new_node.data = data            # 
-        new_node.next = None       
+        new_node.next = None
 
         if self.tail is None:           # first element
-            self.head = new_node
-            self.tail = new_node
+            self.head = new_node        # point head to new element
+            self.tail = new_node        # point tail to new element
         else:
             tail = self.tail
             tail.next = new_node
             self.tail = new_node
-        self.count = self.count + 1        
-        
+        self.count = self.count + 1
+
     def list_add(self, data):
         """
             Add a new element to the list (append)
         """
-        self.logger.info(">> list_add Enter {}".format(data))
-        
+        self.logger.info(">> list_add Enter ")
+
         new_node = Node()
         new_node.data = data
         new_node.next = None
         self.logger.debug("  new node {}".format( hex(id(new_node))))
-        
+
         if self.head is None:
            """
                We are first element 
            """
            self.head = new_node
            self.tail = new_node
-           
+
            self.logger.debug("  added as first ")
         else:
            current_tail = self.tail
@@ -105,8 +118,8 @@ class listSingle(object):
         """
             Return elemnt at the front of the list
         """
-#        self.logger.info(">> list_get_front ")
-        
+        self.logger.info(">> list_get_front ")
+
         if self.list_empty():
             raise ValueError("List is empty!")
             return
@@ -115,11 +128,13 @@ class listSingle(object):
         value = head.data
 
         return value
-        
+
     def list_get_back(self):
         """
             Return elemnt at the back of the list
         """
+        self.logger.info(">> list_get_back ")
+
         if self.list_empty():
             raise ValueError("List is empty!")
             return
@@ -133,15 +148,14 @@ class listSingle(object):
         """
             Search list for specific item
         """
-
         self.logger.info(">> list_search " )
-        
+
         position = 0
-        
+
         if self.head is None:
             raise ValueError("List is empty!")
             return -1
-        
+
         current = self.head
         while current is not None:
             if current.data == value:
@@ -160,13 +174,13 @@ class listSingle(object):
             return
 
         current = self.head
-        self.logger.info("  Head {}".format(hex(id(self.head))))
-        self.logger.info("  Tail {}".format(hex(id(self.tail))))
+        self.logger.info("  Head  {}".format(hex(id(self.head))))
+        self.logger.info("  Tail  {}".format(hex(id(self.tail))))
         self.logger.info("  Count {}".format(self.count))
 
         banner = "      Address   \tValue\t   pNext\t# Nodes [" + str(self.count) + "]";
         print(banner)
-        
+
         while current is not None:
             print("  [" + hex(id(current)) +  "]\t", end='')
             print(current.data, end='')
@@ -175,14 +189,14 @@ class listSingle(object):
             if current == self.head:
                 print("   <---- HEAD", end='')
             if current == self.tail:
-                print("\t   <---- TAIL", end='')                
+                print("\t   <---- TAIL", end='')
             print("")
             current = current.next
 
 if __name__ == "__main__":
     list1 = listSingle(10)
     list2 = listSingle(5)
-    
+
     try:
         list1.list_show()
     except ValueError as e:
@@ -198,7 +212,7 @@ if __name__ == "__main__":
         list1.list_show()
     except ValueError as e:
         logger.error(e)
-    
+
     list2.list_add(20)
     list2.list_add(21)
     list2.list_add(2)    
